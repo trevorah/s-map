@@ -1,14 +1,14 @@
 {
-  "name": "s-map",
+  "name": "web-stream-map",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/trevorah/s-map#readme",
+  "homepage": "https://github.com/trevorah/web-stream-map#readme",
   "bugs": {
-    "url": "https://github.com/trevorah/s-map/issues"
+    "url": "https://github.com/trevorah/web-stream-map/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trevorah/s-map.git"
+    "url": "git+https://github.com/trevorah/web-stream-map.git"
   },
   "license": "MIT",
   "author": "",
