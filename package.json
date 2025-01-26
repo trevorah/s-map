@@ -1,6 +1,6 @@
 {
   "name": "web-stream-map",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A map function for Web Streams with concurrency support. Like node's ReadableStream.map(), but for Web Streams.",
   "keywords": [
     "web streams",
