@@ -18,12 +18,18 @@ test("async map", async () => {
 });
 
 test("concurrency", async () => {
-  const stream = ReadableStream.from([1, 2, 3]);
-  const map = sMap(async (chunk) => {
-    await setTimeout(100);
-    return chunk * 2;
-  }, { concurrency: 2 });
+  const stream = ReadableStream.from([1, 2]);
+  const map = sMap(
+    async (chunk) => {
+      await setTimeout(100);
+      return chunk * 2;
+    },
+    { concurrency: 2 }
+  );
   const timer = performance.now();
-  await Array.fromAsync(stream.pipeThrough(map));
+  const result = await Array.fromAsync(stream.pipeThrough(map));
+  assert.deepEqual(result, [2, 4]);
   assert.ok(performance.now() - timer < 200);
 });
+
+test.todo("concurrency limit");

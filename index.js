@@ -1,41 +1,25 @@
-export default function sMap(fn) {
+import sCompose from "s-compose";
+import pLimit from "p-limit";
 
-  // const xyz= Promise.
+export default function sMap(fn, { concurrency = 1 } = {}) {
+  const limit = pLimit(concurrency);
 
-  const write = new WritableStream({
-    async write(chunk, controller) {
-
- 
-    },
-  });
-
-  // const reader = new ReadableStream({
-
-  let pro
-
-
-
-
-  return new TransformStream({
-    async transform(chunk, controller) {
-
-      while (true) {
-        const ready = await queueReady();
-
-
-      }
-
-      // outside of the parent promise
-      fn(chunk).then((result) => {
-
+  return sCompose(
+    new TransformStream(
+      {
+        async transform(chunk, controller) {
+          const p = limit(() => fn(chunk));
+          controller.enqueue(p);
+        },
+      },
+      {},
+      { highWaterMark: concurrency * 2 - 1 }
+    ),
+    new TransformStream({
+      async transform(chunk, controller) {
+        const result = await chunk;
         controller.enqueue(result);
-      }).catch((error) => {
-        controller.error(error);
-      });
-
-      
-
-
-    },
-  });
+      },
+    })
+  );
 }
